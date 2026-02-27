@@ -2,7 +2,7 @@
 ami_id="ami-0220d79f3f480ecf5"
 sg_id="sg-06ce163ff833036b8"
 Hz_id="Z082049010RMR2FN1A4VI"
-Domain_name="sowjanya.fine"
+Domain_name="sowjanya.fun"
 
 for instance in $@
 do

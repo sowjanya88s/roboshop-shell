@@ -38,7 +38,7 @@ validate $? "enabling version 20"
 dnf install nodejs -y &>> $LOG_file
 validate $? "installing nodejs"
 
-id roboshop
+id roboshop &>> $LOG_file
 if [ $? -ne 0 ] ; then
     useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>> $LOG_file
     validate $? "creating roboshop user"
@@ -56,7 +56,7 @@ cd /app &>> $LOG_file
 validate $? "moving to app dir"
 
 rm -rf /app/*
-VALIDATE $? "Removing existing code"
+validate $? "Removing existing code"
 
 unzip /tmp/catalogue.zip &>> $LOG_file
 validate $? "unzipping code"

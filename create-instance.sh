@@ -9,7 +9,7 @@ do
     instance_id=$(aws ec2 run-instances \
             --image-id $ami_id \
             --security-group-ids $sg_id\
-            --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=$instance}]' \
+            --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$instance}]" \
             --instance-type t3.micro \
             --query 'Instances[0].InstanceId' \
             --output text)

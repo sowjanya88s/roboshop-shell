@@ -38,7 +38,7 @@ validate $? "enabling version 20"
 dnf install nodejs -y &>> $LOG_file
 validate $? "installing nodejs"
 
-ID roboshop
+id roboshop
 if [ $? -ne 0 ] ; then
     useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>> $LOG_file
     validate $? "creating roboshop user"
@@ -73,7 +73,7 @@ validate $? "enabling catalogue"
 systemctl start catalogue &>> $LOG_file
 validate $? "starting daemon"
 
-cp mongo.repo /etc/yum.repos.d/mongo.repo &>> $LOG_file
+cp $SCRIPT_DIR/mongo.repo /etc/yum.repos.d/mongo.repo &>> $LOG_file
 validate $? "copying mongo repo"
 
 dnf install mongodb-mongosh -y &>> $LOG_file

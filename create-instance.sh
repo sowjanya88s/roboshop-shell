@@ -20,7 +20,7 @@ if  [ $instance -eq frontend ] ; then
          --query 'Reservations[].Instances[].PublicIpAddress' \
          --output text)
     record_name="$Domain_name"
-then
+else
     ip=$(aws ec2 describe-instances \
          --instance-ids $INSTANCE_ID \
          --query 'Reservations[].Instances[].PrivateIpAddress' \

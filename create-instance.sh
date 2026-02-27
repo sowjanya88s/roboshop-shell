@@ -30,7 +30,7 @@ fi
     echo "ip address: $ip"
 
 aws route53 change-resource-record-sets \
---hosted-zone-id $hz_id \
+--hosted-zone-id $Hz_id \
 --change-batch '{
   "Comment": "Creating an A record",
   "Changes": [

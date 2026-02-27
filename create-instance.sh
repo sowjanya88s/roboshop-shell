@@ -6,7 +6,7 @@ Domain_name="sowjanya.fine"
 
 for instance in $@
 do
-instance_id=$(aws ec2 run-instances \
+    instance_id=$(aws ec2 run-instances \
             --image-id $ami_id \
             --security-group-ids $sg_id\
             --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=$instance}]' \
@@ -14,7 +14,7 @@ instance_id=$(aws ec2 run-instances \
             --query 'Instances[0].InstanceId' \
             --output text)
 
-if  [ $instance -eq "frontend" ] ; then
+if  [ $instance == "frontend" ] ; then
     ip=$(aws ec2 describe-instances \
          --instance-ids $INSTANCE_ID \
          --query 'Reservations[].Instances[].PublicIpAddress' \
@@ -50,5 +50,5 @@ aws route53 change-resource-record-sets \
   ]
   }
   '
-    echo "record updated for instance $instance"
+    echo "record updated for  $instance"
   done

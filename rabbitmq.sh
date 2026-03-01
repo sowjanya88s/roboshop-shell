@@ -32,7 +32,7 @@ cp $SCRIPT_DIR/rabbitmq.repo  /etc/yum.repos.d/rabbitmq.repo &>> $LOG_file
 validate $? "copying rabbitmq repo"
 
 dnf install rabbitmq-server -y &>> $LOG_file
-validate "installing rabbitmq"
+validate $? "installing rabbitmq"
 
 systemctl enable rabbitmq-server &>> $LOG_file
 validate $? "enabling rabbitmq"

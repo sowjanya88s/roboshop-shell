@@ -7,6 +7,7 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 mysql_host=mysql.sowjanya.fun
+SCRIPT_DIR=$PWD
 
 user_id=$(id -u)
 echo "user id is: $user_id"

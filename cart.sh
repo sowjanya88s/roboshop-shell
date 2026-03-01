@@ -7,8 +7,6 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 SCRIPT_DIR=$PWD
-MONGODB_HOST=mongodb.sowjanya.fun
-
 
 user_id=$(id -u)
 echo "user id is: $user_id"
@@ -49,7 +47,7 @@ fi
 mkdir -p /app  &>> $LOG_file
 validate $? "creating app directory"
 
-curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip  &>> $LOG_file
+curl -o /tmp/cart.zip https://roboshop-artifacts.s3.amazonaws.com/cart-v3.zip  &>> $LOG_file
 validate $? "downloading code"
 
 cd /app &>> $LOG_file
@@ -58,41 +56,22 @@ validate $? "moving to app dir"
 rm -rf /app/* &>> $LOG_file
 validate $? "Removing existing code"
 
-unzip /tmp/catalogue.zip &>> $LOG_file
+unzip /tmp/cart.zip &>> $LOG_file
 validate $? "unzipping code"
 
 npm install &>> $LOG_file
 validate $? "installing dependancies"
 
-cp $SCRIPT_DIR/catalogue.service /etc/systemd/system/catalogue.service &>> $LOG_file
+cp $SCRIPT_DIR/cart.service /etc/systemd/system/cart.service &>> $LOG_file
 validate $? "copying service file"
 
 systemctl daemon-reload &>> $LOG_file
 validate $? "reloading daemon"
 
-systemctl enable catalogue  &>> $LOG_file
-validate $? "enabling catalogue"
+systemctl enable cart  &>> $LOG_file
+validate $? "enabling cart"
 
-systemctl start catalogue &>> $LOG_file
-validate $? "starting catalogue"
-
-cp $SCRIPT_DIR/mongo.repo /etc/yum.repos.d/mongo.repo &>> $LOG_file
-validate $? "copying mongo repo"
-
-dnf install mongodb-mongosh -y &>> $LOG_file
-validate $? "installing mongodb client"
-
-INDEX=$(mongosh --host $MONGODB_HOST --quiet  --eval 'db.getMongo().getDBNames().indexOf("catalogue")') &>> $LOG_file
-
-if [ $INDEX -le 0 ]; then
-    mongosh --host $MONGODB_HOST </app/db/master-data.js &>> $LOG_file
-    validate $? "Loading products"
-else
-    echo -e "Products already loaded ... $Y SKIPPING $N"
-fi
-
-systemctl restart catalogue &>> $LOG_file
-validate $? "Restarting catalogue"
-
+systemctl start cart &>> $LOG_file
+validate $? "starting cart"
 
 

@@ -27,7 +27,7 @@ else
     fi
 }
 
-cp $SCRIPT_DIR  /etc/yum.repos.d/rabbitmq.repo &>> $LOG_file
+cp $SCRIPT_DIR/rabbitmq.repo  /etc/yum.repos.d/rabbitmq.repo &>> $LOG_file
 validate $? "copying rabbitmq repo"
 
 dnf install rabbitmq-server -y &>> $LOG_file
